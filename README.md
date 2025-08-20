@@ -23,3 +23,6 @@ JWT configuration (Key, Issuer, Audience, ExpireMinutes) is in appsettings.json.
 STORAGE – Books are stored in books.json.
 CONTROLLER – Provides endpoints to create, list, update, and delete books. All endpoints are protected with [Authorize], ensuring only authenticated users can access them.
 
+### 20:15 - FRONTEND COMMIT
+HTML/CSS/JS - The main reason for this choice is that these are the frontend technologies I feel most comfortable with, which allowed me to implement the requested features more quickly within the challenge’s time limit.
+To speed up development and improve the UI, I reused parts of templates (HTML/CSS snippets) as a base and adapted them to fit this project.
