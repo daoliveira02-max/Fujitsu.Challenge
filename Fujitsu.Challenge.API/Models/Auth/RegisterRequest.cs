@@ -1,8 +1,7 @@
-﻿namespace Fujitsu.Challenge.API.Models
+﻿namespace Fujitsu.Challenge.API.Models.Auth
 {
-    public class User
+    public class RegisterRequest
     {
-        public int Id { get; set; }
         public required string Username { get; set; }
         public required string PasswordHash { get; set; }
     }
