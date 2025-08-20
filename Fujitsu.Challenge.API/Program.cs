@@ -10,9 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+builder.Services.Configure<StorageSettings>(builder.Configuration.GetSection("Storage"));
 builder.Services.AddControllers();
 
-// Add Authentication with JWT
 var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
 
 builder.Services.AddAuthentication(options =>
@@ -76,6 +76,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
+
+app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

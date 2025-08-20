@@ -17,10 +17,10 @@ namespace Fujitsu.Challenge.API.Services
         private readonly JwtSettings _jwtSettings;
         private readonly IFileRepository<User> _fileRepository;
 
-        public AuthService(IOptions<JwtSettings> jwtSettings)
+        public AuthService(IOptions<JwtSettings> jwtSettings, IOptions<StorageSettings> storageSettings)
         {
             _jwtSettings = jwtSettings.Value;
-            _fileRepository = new FileRepository<User>("users.json");
+            _fileRepository = new FileRepository<User>(storageSettings.Value.UsersFile, storageSettings.Value.Folder);
         }
 
         public IResponse<LoginResponse> Login(LoginRequest request)

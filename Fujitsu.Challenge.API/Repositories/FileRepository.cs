@@ -7,9 +7,9 @@ namespace Fujitsu.Challenge.API.Repositories
     {
         private readonly string _filePath;
 
-        public FileRepository(string fileName)
+        public FileRepository(string fileName, string folder)
         {
-            var dataDir = Path.Combine(AppContext.BaseDirectory, "Data");
+            var dataDir = Path.Combine(AppContext.BaseDirectory, folder);
             if (!Directory.Exists(dataDir))
                 Directory.CreateDirectory(dataDir);
 

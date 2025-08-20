@@ -20,7 +20,9 @@ namespace Fujitsu.Challenge.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var result = _booksService.Get();
+            var userId = int.Parse(User.FindFirst("id")!.Value);
+
+            var result = _booksService.Get(userId);
 
             return Ok(result);
         }
@@ -28,6 +30,8 @@ namespace Fujitsu.Challenge.API.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] BookRequest request)
         {
+            request.UserId = int.Parse(User.FindFirst("id")!.Value);
+
             var result = _booksService.Create(request);
 
             return Ok(result);
@@ -36,6 +40,8 @@ namespace Fujitsu.Challenge.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] BookRequest request)
         {
+            request.UserId = int.Parse(User.FindFirst("id")!.Value);
+
             var result = _booksService.Update(id, request);
 
             if (!result.IsSuccess) 

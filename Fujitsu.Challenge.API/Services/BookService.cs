@@ -1,7 +1,9 @@
 ﻿using Fujitsu.Challenge.API.Interfaces;
 using Fujitsu.Challenge.API.Models;
 using Fujitsu.Challenge.API.Models.Books;
+using Fujitsu.Challenge.API.Models.Settings;
 using Fujitsu.Challenge.API.Repositories;
+using Microsoft.Extensions.Options;
 
 namespace Fujitsu.Challenge.API.Services
 {
@@ -9,15 +11,21 @@ namespace Fujitsu.Challenge.API.Services
     {
         private readonly IFileRepository<Book> _fileRepository;
 
-        public BookService()
+        public BookService(IOptions<StorageSettings> storageSettings)
         {
-            _fileRepository = new FileRepository<Book>("books.json");
+            _fileRepository = new FileRepository<Book>(storageSettings.Value.BooksFile, storageSettings.Value.Folder);
         }
 
-        public IResponse<List<Book>> Get()
+        public IResponse<List<Book>> Get(int userId)
         {
-            var books = _fileRepository.GetAll();
-            return Response<List<Book>>.Success(_fileRepository.GetAll());
+            var books = _fileRepository.GetAll()
+                .Where(b => b.UserId == userId)
+                .ToList();
+
+            if (!books.Any())
+                return Response<List<Book>>.Failure("Books not found");
+
+            return Response<List<Book>>.Success(books);
         }
 
         public IResponse<Book> Create(BookRequest request)
@@ -30,7 +38,8 @@ namespace Fujitsu.Challenge.API.Services
                 Title = request.Title,
                 Author = request.Author,
                 Publisher = request.Publisher,
-                Year = request.Year
+                Year = request.Year,
+                UserId = request.UserId
             };
 
             books.Add(newBook);
@@ -51,6 +60,7 @@ namespace Fujitsu.Challenge.API.Services
             book.Author = request.Author;
             book.Publisher = request.Publisher;
             book.Year = request.Year;
+            book.UserId = request.UserId;
 
             _fileRepository.SaveAll(books);
 
