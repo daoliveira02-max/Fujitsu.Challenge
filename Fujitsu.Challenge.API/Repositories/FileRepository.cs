@@ -34,6 +34,7 @@ namespace Fujitsu.Challenge.API.Repositories
         public void SaveAll(List<T> items)
         {
             var json = JsonSerializer.Serialize(items, new JsonSerializerOptions { WriteIndented = true });
+            
             File.WriteAllText(_filePath, json);
         }
     }

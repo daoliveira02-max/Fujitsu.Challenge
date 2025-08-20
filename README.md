@@ -19,3 +19,7 @@ JWT configuration (Key, Issuer, Audience, ExpireMinutes) is in appsettings.json.
 * OUTPUT - A generic Response<T> was done to standardize success/failure responses across the application.
 * DI - AuthService is registered as Scoped. This ensures a new instance per request while keeping file access consistent through the FileRepository.
 
+### 17:45 - BOOK SERVICE COMMIT 
+STORAGE – Books are stored in books.json.
+CONTROLLER – Provides endpoints to create, list, update, and delete books. All endpoints are protected with [Authorize], ensuring only authenticated users can access them.
+

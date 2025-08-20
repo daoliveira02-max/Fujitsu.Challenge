@@ -52,7 +52,7 @@ namespace Fujitsu.Challenge.API.Services
             {
                 Id = users.Any() ? users.Max(u => u.Id) + 1 : 1,
                 Username = username,
-                PasswordHash = PasswordHash(request.PasswordHash)
+                PasswordHash = PasswordHash(request.Password)
             };
 
             users.Add(newUser);
